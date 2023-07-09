@@ -1,25 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
 
   //hooks
-  const [blogs, setBlogs] = useState([
-    {title: "My new websote", body: "It's a me",author: "Mario", id: 1},
-    {title: "Twoja Stara", body: "zapierdala",author: "Twój Stary", id: 2},
-    {title: "Top Secret", body: "None of your buisness",author: "HWI@#$(&hs12", id: 3}
-  ]);
+  const [blogs, setBlogs] = useState(null);
 
-  
-  const handleDelete = (id) => {
-    const newBlogs = blogs.filter((blog) => blog.id !== id)
-    setBlogs(newBlogs);
-  }
+  useEffect(() => {
+    //do not change the state in this
+    //if only on first render, add a 2nd argument, '[]'
+    fetch('http://localhost:8000/blogs')
+      .then(response => response.json())
+      .then(data => setBlogs(data))
+  }, []);
 
   return ( 
     <div className = "Home">
-      <BlogList blogs = {blogs} title = {"dupa"} handleDelete = {handleDelete}/>
-      <BlogList blogs = {blogs.filter((blog) => blog.author === "Mario")} title = {"Mario's blogs"} handleDelete = {handleDelete}/>
+      {
+      blogs && <BlogList blogs = {blogs} title = {"dupa"}/>
+      }
     </div>
    );
 }
