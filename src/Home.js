@@ -1,35 +1,25 @@
 import { useState } from "react";
+import BlogList from "./BlogList";
 
 const Home = () => {
 
-  //tzw "hook"
-  const[name, setName] = useState("Mario");
-  const[age, setAge] = useState(50);
+  //hooks
+  const [blogs, setBlogs] = useState([
+    {title: "My new websote", body: "It's a me",author: "Mario", id: 1},
+    {title: "Twoja Stara", body: "zapierdala",author: "Twój Stary", id: 2},
+    {title: "Top Secret", body: "None of your buisness",author: "HWI@#$(&hs12", id: 3}
+  ]);
 
-  const handleClick = (e) => {
-    //property: event, jest automatyczne
-    console.log("twoja stara", e);
-    setName("Luigi");
-    setAge(age + 1);
-  }
-
-  const handleClickAgain = (name, e) => {
-    console.log(`${name}, umarł na ligmę`, e);
-    setName("Mario");
-    setAge(age + 1);
+  
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter((blog) => blog.id !== id)
+    setBlogs(newBlogs);
   }
 
   return ( 
     <div className = "Home">
-      <h2>Homepage</h2>
-      <button onClick = {handleClick}>Click me</button>
-      <p>{`${name} is ${age} years old`}</p>
-      <button onClick = {
-        (e) => {
-          // ta funkcja z parametrami musi byc anonimowa, inaczej jest wywolana raz na starcie
-          handleClickAgain("yoshi", e);
-        }
-        }>Click me again</button>
+      <BlogList blogs = {blogs} title = {"dupa"} handleDelete = {handleDelete}/>
+      <BlogList blogs = {blogs.filter((blog) => blog.author === "Mario")} title = {"Mario's blogs"} handleDelete = {handleDelete}/>
     </div>
    );
 }
