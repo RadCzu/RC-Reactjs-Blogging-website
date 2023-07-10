@@ -1,26 +1,20 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
-
-  //hooks
-  const [blogs, setBlogs] = useState(null);
-
-  useEffect(() => {
-    //do not change the state in this
-    //if only on first render, add a 2nd argument, '[]'
-    fetch('http://localhost:8000/blogs')
-      .then(response => response.json())
-      .then(data => setBlogs(data))
-  }, []);
+  //data: blogs is important
+  const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
 
   return ( 
     <div className = "Home">
-      {
-      blogs && <BlogList blogs = {blogs} title = {"dupa"}/>
-      }
+      {error && <div> {error} </div>}
+      {isPending && <div> Loading... </div>}
+      {blogs && <BlogList blogs = {blogs} title = {"dupa"}/>}
     </div>
    );
 }
  
 export default Home;
+
+//npx json-server --watch  data/db.json --port 8000
