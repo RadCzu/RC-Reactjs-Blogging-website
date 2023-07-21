@@ -53,3 +53,144 @@
 .blog-preview a{
   text-decoration: none;
 }
+
+/* blog details page */
+.blog-details h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 10px;
+}
+.blog-details div {
+  margin: 20px 0;
+  color: #000000;
+}
+.blog-details button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* create new blog form */
+.create {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.create label {
+  text-align: left;
+  display: block;
+}
+.create h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+.create input, .create textarea, .create select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.create button {
+  background: #f1356d;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* login */
+
+.login {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+
+.login input, .login textarea, .login select, .login textarea {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.login button {
+  background: #f1356d;
+  font-size: 20px;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-fail {
+  font-size: 15px;
+  color: #ff0c0c;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* sign up page */
+
+.sign-up {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+
+.sign-up input, .sign-up textarea, .sign-up select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.sign-up button {
+  background: #f1356d;
+  font-size: 20px;
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sign-up-fail {
+  font-size: 15px;
+  color: #ff0c0c;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+
+/* 404 page */
+.notFound {
+  font-size: 20px;
+  color: #f1356d;
+}
+
+.notFound h1 {
+  font-size: 100px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
+
+.notFound p {
+  font-size: 50px;
+  color: #f1356d;
+  margin-bottom: 30px;
+}
