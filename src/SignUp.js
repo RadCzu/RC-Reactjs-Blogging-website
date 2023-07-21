@@ -92,7 +92,7 @@ const SignUp = () => {
             setUsername(data.user);
             localStorage.setItem("userName", JSON.stringify({username}));
             localStorage.setItem("userIndex", JSON.stringify({index}));
-            distaptch({type: "LOGIN", payload: {username, index} });
+            dispatch({type: "LOGIN", payload: {username, index} });
             handleSubmit(e);
             history.push("/");
           } else {
