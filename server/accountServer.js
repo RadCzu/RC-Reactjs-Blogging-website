@@ -10,7 +10,7 @@ server.use(cors());
 
 server.post('/auth/login', (req, res) => {
   const { username, password } = req.body;
-  console.log("username:" + username, " passowrd: " + password);
+  console.log("username: " + username, " passowrd: " + password);
   const users = router.db.get('users').value();
   const user = users.find(user => user.name === username && user.password === password);
   if (user) {
@@ -28,6 +28,16 @@ server.post('/auth/sign-up', (req, res) => {
   console.log("index: " + index);
   if (!user) {
     res.status(200).json({ success: true, user: user.user, index: user.id});
+  } else {
+    res.status(401).json({ success: false, message: 'Username already in database' });
+  }
+});
+
+server.post("/users/:id", (req, res) => {
+  const { id } = req.body;
+  const user = users.find(user => user.id === id);
+  if (!user) {
+    res.status(200).json({ success: true, name: user.name});
   } else {
     res.status(401).json({ success: false, message: 'Username already in database' });
   }
