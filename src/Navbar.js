@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 const Navbar = () => {
 
   const loggedIn = useSelector((state => state.isLoggedIn));
-  const account = useSelector((state => state.username));
-  const index = useSelector((state => state.id));
+  const account = useSelector((state => state.userName));
+  const index = useSelector((state => state.userId));
 
   const dispatch = useDispatch();
   
@@ -31,7 +31,7 @@ const Navbar = () => {
           backgroundColor: "#f1356d",
           borderRadius: "8px"
         }}>Login</Link>}
-        {loggedIn && <button onClick = {() => logOut()}></button>}
+        {loggedIn && <button onClick = {() => logOut()}>Logout</button>}
         {loggedIn && <Link to = { `/users/${index}`}>{account}</Link>}
         
       </div>

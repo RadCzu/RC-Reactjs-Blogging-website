@@ -28,6 +28,18 @@
 .navbar a:hover {
   color: #f1356d;
 }
+
+.navbar button {
+  background: #f1356d;
+  font-size: 16px;
+  color: #fff;
+  border: 0;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .content {
   max-width: 600px;
   margin: 40px auto;

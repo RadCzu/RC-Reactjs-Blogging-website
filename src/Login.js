@@ -25,13 +25,11 @@ const Login = () => {
       });
   
       if (response.ok) {
-        const data = response.json();
+        const data = await response.json();
         const id = data.id;
         setUsername(data.user);
         setPassword("");
-        // localStorage.setItem("userName", JSON.stringify({username}));
-        // localStorage.setItem("userIndex", JSON.stringify({id}));
-        dispatch({ type: 'LOGIN', payload: { username, id } });
+        dispatch({ type: 'LOGIN', payload: {userName: username, userId: id } });
         console.log(`logged in as ${username} with id: ${id}`);
         history.push("/");
       } else {
