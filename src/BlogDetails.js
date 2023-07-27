@@ -1,13 +1,52 @@
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import useFetch from "./useFetch";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const BlogDetails = (params) => {
   const { id } = useParams();
   const { data: blog, error, isPending } = useFetch(`http://localhost:8000/blogs/${id}`);
+  const [authorID, setAuthorID] = useState();
+  const [foundAuthor, setFoundAuthor] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(false);
   const history = useHistory();
-  const isLoggedIn = useSelector((state => state.loggedIn));
-  const userName = useSelector((state => state.username));
+  const isLoggedIn = useSelector((state => state.isLoggedIn));
+  const userName = useSelector((state => state.userName));
+
+
+  useEffect(() => {
+    if(!isPending) {
+      const author = blog.author;
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch(`http://localhost:8000/auth/get-id`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: author }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data.id);
+            setAuthorID(data.id);
+            setFoundAuthor(true);
+          } else {
+            console.log("Failed to load author");
+          }
+        } catch (error) {
+          console.error("Error loading author:", error);
+        }
+      };
+
+      fetchUserData();
+
+      if ((userName === blog.author)) {
+        setIsAuthor(true);
+      } 
+    }
+  }, [isPending])
 
   const handleClick = () => {
     fetch(`http://localhost:8000/blogs/${blog.id}`, {
@@ -15,17 +54,18 @@ const BlogDetails = (params) => {
     }).then(() => {
       history.push("/");
     })
+
   }
   return ( 
     <div className = "blog-details">
-      { isPending && <div> Loading... </div>}
+      { (isPending || !foundAuthor) && <div> Loading... </div>}
       { error && <div>{error}</div>}
-      { blog && (
+      { blog && foundAuthor &&  (
         <article>
           <h2>{blog.title}</h2>
-          <p>Written by: {blog.author}</p>
+          <p>Written by: <Link to = {`/users/${authorID}`}>{blog.author}</Link></p>
           <div>{blog.body}</div>
-          {isLoggedIn && (userName === blog.author) && <button onClick = {handleClick}>Delete Blog</button>}
+          {isLoggedIn && isAuthor && <button onClick = {handleClick}>Delete Blog</button>}
         </article>
 
       )}

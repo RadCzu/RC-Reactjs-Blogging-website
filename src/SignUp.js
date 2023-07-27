@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     setIsPending(true);
     e.preventDefault();
-    const user = {username, password1, email};
+    const user = {name: username, password: password1, email: email};
     
     //adding object to a json server
     fetch("http://localhost:8000/users", {
@@ -89,11 +89,8 @@ const SignUp = () => {
           if (response.ok) {
             const data = response.json();
             const index = data.id;
-            setUsername(data.user);
-            localStorage.setItem("userName", JSON.stringify({username}));
-            localStorage.setItem("userIndex", JSON.stringify({index}));
-            dispatch({type: "LOGIN", payload: {username, index} });
             handleSubmit(e);
+            dispatch({type: "LOGIN", payload: {userName: username, userId: index} });
             history.push("/");
           } else {
             console.log("Username Taken");

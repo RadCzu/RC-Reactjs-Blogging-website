@@ -1,18 +1,25 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("mario");
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
+
+  const loggedIn = useSelector((state => state.isLoggedIn));
+  const account = useSelector((state => state.userName));
 
   const handleSubmit = (e) => {
     setIsPending(true);
     e.preventDefault();
-    const blog = {title, body, author};
-    
+    const blog = {title: title, body: body, author: account};
+    if (account && loggedIn || account === "") {
+      blog.author = account;
+    } else {
+      blog.author = "anonymous";
+    }
     //adding object to a json server
     fetch("http://localhost:8000/blogs", {
       method: "POST",
@@ -46,13 +53,6 @@ const Create = () => {
       onChange={(e => setBody(e.target.value))}> 
       </textarea>
 
-      <label>
-        Author:
-      </label>
-      <select value = {author} onChange = {(e) => setAuthor(e.target.value)}>
-      <option value = "mario">mario</option>
-      <option value = "luigi">luigi</option>
-      </select>
       {!isPending && <button>Add Blog</button>}
       {isPending && <button>Adding blog...</button>}
     </form>

@@ -22,32 +22,63 @@ server.post('/auth/login', (req, res) => {
 
 server.post('/auth/sign-up', (req, res) => {
   const { username } = req.body;
-  console.log("username:" + username);
+  console.log("username: " + username);
   const users = router.db.get('users').value();
   const user = users.find(user => user.name === username);
-  console.log("index: " + index);
   if (!user) {
-    res.status(200).json({ success: true, user: user.user, index: user.id});
+    let index = 0;
+    for(let i = 0; i < users.length; i++) {
+      if(users[i].id != i) {
+        index = i;
+        break;
+      }
+    }
+    res.status(200).json({ success: true, id: index, message: 'Username not in database'});
   } else {
     res.status(401).json({ success: false, message: 'Username already in database' });
   }
 });
 
-server.post("/users/:id", (req, res) => {
+server.post("/auth/get-user", (req, res) => {
   const { id } = req.body;
-  const user = users.find(user => user.id === id);
-  if (!user) {
+  const users = router.db.get('users').value();
+  const convertedId = parseInt(id, 10);
+  const user = users.find(user => user.id === convertedId);
+  if (user) {
     res.status(200).json({ success: true, name: user.name});
   } else {
     res.status(401).json({ success: false, message: 'Username already in database' });
   }
 });
 
+server.post("/auth/get-id", (req, res) => {
+  const { name } = req.body;
+  const users = router.db.get('users').value();
+  console.log(name);
+  const user = users.find(user => user.name === name);
+  console.log("username: " + user.name, " id: " + user.id);
+  if (user) {
+    res.status(200).json({ success: true, name: user.name, id: user.id});
+
+  } else {
+    res.status(401).json({ success: false, message: 'couldnt find user' });
+  }
+});
+
+
 server.get('/auth/login', (req, res) => {
   res.json([]);
 });
 
 server.get('/auth/sign-up', (req, res) => {
+  res.json([]);
+});
+
+server.get('/auth/get-id', (req, res) => {
+  res.json([]);
+});
+
+server.get('/auth/get-user', (req, res) => {
   res.json([]);
 });
 

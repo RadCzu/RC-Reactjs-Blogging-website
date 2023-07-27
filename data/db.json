@@ -17,6 +17,18 @@
       "body": "waaaaa",
       "author": "mario",
       "id": 5
+    },
+    {
+      "title": "nobody wrote this",
+      "body": "i am anonymous",
+      "author": "anonymous",
+      "id": 6
+    },
+    {
+      "title": "WARRRRIOOOO",
+      "body": "gib me money",
+      "author": "Wario",
+      "id": 7
     }
   ],
   "users": [
@@ -39,10 +51,16 @@
       "id": 3
     },
     {
-      "username": "Wario",
-      "password1": "its@meWario1",
+      "name": "Wario",
+      "password": "its@meWario1",
       "email": "yaboi@69.wario",
       "id": 4
+    },
+    {
+      "name": "anonymous",
+      "password": "@Nonym123",
+      "email": "anonymous@anonymous.anonymous",
+      "id": 5
     }
   ],
   "auth": [
@@ -51,6 +69,9 @@
     },
     {
       "sign-up": []
+    },
+    {
+      "get-id": []
     }
   ]
 }
