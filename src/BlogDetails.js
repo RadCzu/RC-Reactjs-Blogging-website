@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const BlogDetails = (params) => {
+  const serverUrl = useSelector((state => state.serverUrl));
   const { id } = useParams();
   const { data: blog, error, isPending } = useFetch(`${serverUrl}/auth/login/blogs/${id}`);
   const [authorID, setAuthorID] = useState();
@@ -13,7 +14,7 @@ const BlogDetails = (params) => {
   const history = useHistory();
   const isLoggedIn = useSelector((state => state.isLoggedIn));
   const userName = useSelector((state => state.userName));
-  const serverUrl = useSelector((state => state.serverUrl));
+
 
 
   useEffect(() => {
