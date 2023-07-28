@@ -6,13 +6,14 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const BlogDetails = (params) => {
   const { id } = useParams();
-  const { data: blog, error, isPending } = useFetch(`http://localhost:8000/blogs/${id}`);
+  const { data: blog, error, isPending } = useFetch(`${serverUrl}/auth/login/blogs/${id}`);
   const [authorID, setAuthorID] = useState();
   const [foundAuthor, setFoundAuthor] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
   const history = useHistory();
   const isLoggedIn = useSelector((state => state.isLoggedIn));
   const userName = useSelector((state => state.userName));
+  const serverUrl = useSelector((state => state.serverUrl));
 
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const BlogDetails = (params) => {
       const author = blog.author;
       const fetchUserData = async () => {
         try {
-          const response = await fetch(`http://localhost:8000/auth/get-id`, {
+          const response = await fetch(`${serverUrl}/auth/get-id`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -49,7 +50,7 @@ const BlogDetails = (params) => {
   }, [isPending])
 
   const handleClick = () => {
-    fetch(`http://localhost:8000/blogs/${blog.id}`, {
+    fetch(`${serverUrl}/blogs/${blog.id}`, {
       method: "DELETE"
     }).then(() => {
       history.push("/");

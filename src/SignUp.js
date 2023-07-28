@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
 
@@ -12,14 +12,11 @@ const SignUp = () => {
   const [passwordWrongChars, setPasswordWrongChars] = useState(false);
   const [passwordNotSame, setPasswordNotSame] = useState(false);
   const [email, setEmail] = useState("");
-
   const [emailInvalid, setEmailInvalid] = useState(false);
-
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
-
   const dispatch = useDispatch();
-
+  const serverUrl = useSelector((state => state.serverUrl));
   const characters = 8;
 
   const handleSubmit = (e) => {
@@ -28,7 +25,7 @@ const SignUp = () => {
     const user = {name: username, password: password1, email: email};
     
     //adding object to a json server
-    fetch("http://localhost:8000/users", {
+    fetch(`${serverUrl}/users`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(user)
@@ -78,7 +75,7 @@ const SignUp = () => {
       } else {
         setEmailInvalid(false);
         try {
-          const response = await fetch("http://localhost:8000/auth/sign-up", {
+          const response = await fetch(`${serverUrl}/auth/sign-up`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -136,7 +133,7 @@ const SignUp = () => {
 
       <div>
         <label>
-          Password
+          Password {" (dont use any real password or email, there is no data security on this test website)"}
         </label>
         <input 
         required

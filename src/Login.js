@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Navbar from "./Navbar";
 
@@ -12,11 +12,13 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const serverUrl = useSelector((state => state.serverUrl));
+
   const handleLogin = async (e) => {
     e.preventDefault(); // stop from submission
 
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch(`${serverUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

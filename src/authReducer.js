@@ -2,6 +2,7 @@ const initialState = {
   isLoggedIn: false,
   userName: null,
   userId: null,
+  serverUrl: "https://my-json-server.typicode.com/RadCzu/RC-Reactjs-Server"
 };
 
 const authReducer = (state = initialState, action) => {

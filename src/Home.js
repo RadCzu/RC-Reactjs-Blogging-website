@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 
 const Home = () => {
   //data: blogs is important
-  const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
-
+  const serverUrl = useSelector((state => state.serverUrl));
+  const {data: blogs, isPending, error} = useFetch(`${serverUrl}/blogs`);
   return ( 
     <div className = "Home">
       {error && <div> {error} </div>}

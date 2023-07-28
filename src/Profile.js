@@ -3,18 +3,20 @@ import  profilePicture from "./graphics/profilepicture.png"
 import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
+import { useSelector } from "react-redux";
 
 const Profile = (params) => {
   const { id } = useParams();
   const [username, setUsername] = useState();
   const [bloglist, setBloglist] = useState([]);
-  const {data: blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
+  const serverUrl = useSelector((state => state.serverUrl));
+  const {data: blogs, isPending, error} = useFetch(`${serverUrl}/blogs`);
   const history = useHistory();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/auth/get-user`, {
+        const response = await fetch(`${serverUrl}/auth/get-user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

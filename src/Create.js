@@ -10,6 +10,7 @@ const Create = () => {
 
   const loggedIn = useSelector((state => state.isLoggedIn));
   const account = useSelector((state => state.userName));
+  const serverUrl = useSelector((state => state.serverUrl));
 
   const handleSubmit = (e) => {
     setIsPending(true);
@@ -21,7 +22,7 @@ const Create = () => {
       blog.author = "anonymous";
     }
     //adding object to a json server
-    fetch("http://localhost:8000/blogs", {
+    fetch(`${serverUrl}/blogs`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(blog)
