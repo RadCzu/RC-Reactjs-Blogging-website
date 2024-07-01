@@ -61,6 +61,18 @@
       "password": "@Nonym123",
       "email": "anonymous@anonymous.anonymous",
       "id": 5
+    },
+    {
+      "name": "waluigi",
+      "password": "asd123A!",
+      "email": "waluigi@gmail.com",
+      "id": 6
+    },
+    {
+      "name": "test",
+      "password": "1111111aA!",
+      "email": "test@test.test",
+      "id": 7
     }
   ],
   "auth": [

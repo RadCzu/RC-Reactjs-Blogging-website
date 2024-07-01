@@ -8,7 +8,7 @@ const BlogDetails = (params) => {
   const serverUrl = useSelector((state => state.serverUrl));
   const { id } = useParams();
   console.log(serverUrl);
-  const { data: blog, error, isPending } = useFetch(`${serverUrl}/auth/login/blogs/${id}`);
+  const { data: blog, error, isPending } = useFetch(`${serverUrl}/auth/login/blogs?id=${id}`);
   const [authorID, setAuthorID] = useState();
   const [foundAuthor, setFoundAuthor] = useState(false);
   const [isAuthor, setIsAuthor] = useState(false);
@@ -18,7 +18,10 @@ const BlogDetails = (params) => {
 
   useEffect(() => {
     if(!isPending) {
-      const author = blog.author;
+      console.log(id)
+      console.log(blog)
+      const author = blog[0].author;
+      console.log(`author: ${author}`)
       const fetchUserData = async () => {
         try {
           const response = await fetch(`${serverUrl}/auth/get-id`, {
@@ -63,9 +66,9 @@ const BlogDetails = (params) => {
       { error && <div>{error}</div>}
       { blog && foundAuthor &&  (
         <article>
-          <h2>{blog.title}</h2>
-          <p>Written by: <Link to = {`/users/${authorID}`}>{blog.author}</Link></p>
-          <div>{blog.body}</div>
+          <h2>{blog[0].title}</h2>
+          <p>Written by: <Link to = {`/users/${authorID}`}>{blog[0].author}</Link></p>
+          <div>{blog[0].body}</div>
           {isLoggedIn && isAuthor && <button onClick = {handleClick}>Delete Blog</button>}
         </article>
 

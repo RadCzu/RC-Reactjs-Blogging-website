@@ -55,6 +55,7 @@ server.post("/auth/get-id", (req, res) => {
   const { name } = req.body;
   const users = router.db.get('users').value();
   console.log(name);
+  console.log(users);
   const user = users.find(user => user.name === name);
   console.log("username: " + user.name, " id: " + user.id);
   if (user) {
@@ -62,6 +63,20 @@ server.post("/auth/get-id", (req, res) => {
 
   } else {
     res.status(401).json({ success: false, message: 'couldnt find user' });
+  }
+});
+
+server.post(`/auth/login/get-blog`, (req, res) => {
+  const { id } = req.body;
+  const blogs = router.db.get('blogs').value();
+  console.log(blogs);
+  const blog = blogs.find(blog => blog.id === id);
+  console.log(blog);
+  if (user) {
+    res.status(200).json({ success: true, blog: blog});
+
+  } else {
+    res.status(401).json({ success: false, message: 'couldnt find blog' });
   }
 });
 

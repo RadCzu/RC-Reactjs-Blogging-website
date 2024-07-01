@@ -4,7 +4,8 @@ const initialState = {
   userId: null,
   // change serverUrl to : "http://localhost:8000", for the app to work locally with all features
   // run: "npm run server" in the terminal for the server to work locally, otherwise the custom json-server will not respond to "POST" requests
-  serverUrl: "https://my-json-server.typicode.com/RadCzu/RC-Reactjs-Server"
+  //serverUrl: "https://my-json-server.typicode.com/RadCzu/RC-Reactjs-Server"
+  serverUrl: "http://localhost:8000"
 };
 
 const authReducer = (state = initialState, action) => {
